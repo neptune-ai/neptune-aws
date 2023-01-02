@@ -19,5 +19,7 @@ __all__ = [
     "init_run"
 ]
 
-from neptune_aws.impl import __version__
-from neptune_aws.secrets import init_run
+from neptune_aws.impl import (
+    __version__,
+    init_run,
+)
