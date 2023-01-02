@@ -15,20 +15,26 @@
 #
 
 import json
+
 import boto3
 
-__all__ = [
-    "__version__",
-    "init_run"
-]
+try:
+    # neptune-client=0.9.0+ package structure
+    import neptune.new as neptune
+except ImportError:
+    # neptune-client>=1.0.0 package structure
+    import neptune
 
 from neptune_aws.impl.version import __version__
+
+__all__ = ["__version__", "init_run"]
 
 INTEGRATION_VERSION_KEY = "source_code/integrations/aws"
 
 
 def init_run(secret, region, **kwargs):
-    """Starts a new tracked run taking project name and API token from AWS Secrets and adds it to the top of the runs table.
+    """Starts a new tracked run taking project name and API token from AWS Secrets and adds it to the top of the runs
+    table.
 
     If you provide the ID of an existing run, that run is resumed and no new run is created.
 
@@ -59,18 +65,13 @@ def init_run(secret, region, **kwargs):
     # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/secrets-manager.html
 
     session = boto3.session.Session()
-    client = session.client(
-        service_name='secretsmanager',
-        region_name=region
-    )
-    get_secret_value_response = client.get_secret_value(
-        SecretId=secret
-    )
-    secret = json.loads(get_secret_value_response['SecretString'])
+    client = session.client(service_name="secretsmanager", region_name=region)
+    get_secret_value_response = client.get_secret_value(SecretId=secret)
+    secret = json.loads(get_secret_value_response["SecretString"])
 
     run = neptune.init_run(
-        project = secret['project'],
-        api_token = secret['api_token'],
+        project=secret["project"],
+        api_token=secret["api_token"],
         **kwargs,
     )
     run[INTEGRATION_VERSION_KEY] = __version__

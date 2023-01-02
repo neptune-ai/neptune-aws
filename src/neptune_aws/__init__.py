@@ -14,10 +14,7 @@
 # limitations under the License.
 #
 
-__all__ = [
-    "__version__",
-    "init_run"
-]
+__all__ = ["__version__", "init_run"]
 
 from neptune_aws.impl import (
     __version__,
