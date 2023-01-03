@@ -36,7 +36,7 @@ def init_run(secret, region, **kwargs):
     """Starts a new tracked run taking project name and API token from AWS Secrets and adds it to the top of the runs
     table.
 
-    If you provide the ID of an existing run, that run is resumed and no new run is created.
+    The AWS Secret needs to have the two fields `project` with project name and `api_token` with Neptune API token.
 
     Args:
         secret: Name of the AWS Secret holding the Neptune project name and API token.
