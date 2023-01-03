@@ -59,11 +59,11 @@ def init_run(
 
         Creating a new run:
 
-        >>> from neptune.new.integrations.aws import init_run
+        >>> from neptune.new.integrations.aws import init_run  # doctest: +SKIP
         >>> run = init_run(
         ...     secret="neptune-secret",  # Use your secret name here
         ...     region="us-west-1",       # Use appropriate region here
-        ... )
+        ... )  # doctest: +SKIP
 
     For more, see the API reference:
     https://docs.neptune.ai/api/neptune#init_run
