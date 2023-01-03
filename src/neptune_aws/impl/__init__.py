@@ -15,6 +15,7 @@
 #
 
 import json
+from typing import Optional
 
 import boto3
 
@@ -32,15 +33,23 @@ __all__ = ["__version__", "init_run"]
 INTEGRATION_VERSION_KEY = "source_code/integrations/aws"
 
 
-def init_run(secret, region, **kwargs):
+def init_run(
+    secret: str,
+    region: str,
+    *,
+    project: Optional[str] = None,
+    **kwargs,
+) -> neptune.Run:
     """Starts a new tracked run taking project name and API token from AWS Secrets and adds it to the top of the runs
     table.
 
-    If you provide the ID of an existing run, that run is resumed and no new run is created.
+    The AWS Secret needs to have the two fields `project` with project name and `api_token` with Neptune API token.
 
     Args:
         secret: Name of the AWS Secret holding the Neptune project name and API token.
         region: The AWS region where the AWS Secret is defined.
+        project: Name of the project where the run should go, in the form "workspace-name/project_name". If not given,
+            the project is read from the AWS Secret.
         **kwargs: Additional parameters of the `init_run` method from Neptune client.
 
     Returns:
@@ -50,11 +59,11 @@ def init_run(secret, region, **kwargs):
 
         Creating a new run:
 
-        >>> from neptune.new.integrations.aws import init_run
+        >>> from neptune.new.integrations.aws import init_run  # doctest: +SKIP
         >>> run = init_run(
         ...     secret="neptune-secret",  # Use your secret name here
         ...     region="us-west-1",       # Use appropriate region here
-        ... )
+        ... )  # doctest: +SKIP
 
     For more, see the API reference:
     https://docs.neptune.ai/api/neptune#init_run
@@ -69,8 +78,11 @@ def init_run(secret, region, **kwargs):
     get_secret_value_response = client.get_secret_value(SecretId=secret)
     secret = json.loads(get_secret_value_response["SecretString"])
 
+    if project is None:
+        project = secret["project"]
+
     run = neptune.init_run(
-        project=secret["project"],
+        project=project,
         api_token=secret["api_token"],
         **kwargs,
     )
