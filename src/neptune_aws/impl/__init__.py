@@ -34,9 +34,9 @@ INTEGRATION_VERSION_KEY = "source_code/integrations/aws"
 
 
 def init_run(
+    *,
     secret: str,
     region: str,
-    *,
     project: Optional[str] = None,
     **kwargs,
 ) -> neptune.Run:
