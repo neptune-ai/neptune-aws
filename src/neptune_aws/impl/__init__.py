@@ -40,33 +40,33 @@ def init_run(
     project: Optional[str] = None,
     **kwargs,
 ) -> neptune.Run:
-    """Starts a new tracked run taking project name and API token from AWS Secrets and adds it to the top of the runs
-    table.
+    """Starts a new tracked run and adds it to the top of the runs table.
 
-    The AWS Secret needs to have the two fields `project` with project name and `api_token` with Neptune API token.
+    Takes the project name and API token from AWS Secrets. A secret with the following fields must be
+    defined in AWS Secrets Manager:
+    - `project` with the Neptune project name
+    - `api_token` with the Neptune API token
+    For how to find the above Neptune credentials, see the docs: https://docs.neptune.ai/setup/setting_credentials
 
     Args:
-        secret: Name of the AWS Secret holding the Neptune project name and API token.
-        region: The AWS region where the AWS Secret is defined.
+        secret: Name of the AWS secret holding the Neptune project name and API token.
+        region: The AWS region where the AWS secret is defined.
         project: Name of the project where the run should go, in the form "workspace-name/project_name". If not given,
-            the project is read from the AWS Secret.
-        **kwargs: Additional parameters of the `init_run` method from Neptune client.
+            the project is read from the AWS secret.
+        **kwargs: Additional keyword arguments for the `init_run()` method of the Neptune client library.
+            For details, see the API reference: https://docs.neptune.ai/api/neptune#init_run
 
     Returns:
         Run object that is used to manage the tracked run and log metadata to it.
 
-    Examples:
-
+    Example:
         Creating a new run:
 
         >>> from neptune.new.integrations.aws import init_run  # doctest: +SKIP
         >>> run = init_run(
         ...     secret="neptune-secret",  # Use your secret name here
-        ...     region="us-west-1",       # Use appropriate region here
+        ...     region="us-west-1",       # Use the appropriate region here
         ... )  # doctest: +SKIP
-
-    For more, see the API reference:
-    https://docs.neptune.ai/api/neptune#init_run
     """
 
     # See:
