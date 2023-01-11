@@ -1,4 +1,13 @@
-# Neptune - Tools for using Neptune client on AWS
+# Neptune + Amazon SageMaker integration
 
-TODO: Update docs link
-See [the official docs](https://docs.neptune.ai/integrations-and-supported-tools/model-training/).
+This is an integration that exposes the `init_run` function that reads the Neptune API token and project name from
+AWS Secrets Manager instead of environment variables.
+
+```python
+from neptune.new.integrations.aws import init_run 
+
+run = init_run(
+    secret="neptune-secret",  # Use your secret name here
+    region="us-west-1",       # Use appropriate region here
+) 
+```
