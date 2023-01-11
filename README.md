@@ -1,4 +1,4 @@
-# Neptune + Amazon SageMaker integration
+# Utilities for using Neptune client on AWS
 
 This is an integration that exposes the `init_run` function that reads the Neptune API token and project name from
 AWS Secrets Manager instead of environment variables.
