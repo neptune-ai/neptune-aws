@@ -8,6 +8,6 @@ from neptune.new.integrations.aws import init_run
 
 run = init_run(
     secret="neptune-secret",  # Use your secret name here
-    region="us-west-1",       # Use appropriate region here
+    region="us-west-1",  # Use the appropriate region here
 ) 
 ```
