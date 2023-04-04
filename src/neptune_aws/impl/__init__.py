@@ -20,11 +20,11 @@ from typing import Optional
 import boto3
 
 try:
-    # neptune-client=0.9.0+ package structure
-    import neptune.new as neptune
-except ImportError:
-    # neptune-client>=1.0.0 package structure
     import neptune
+    from neptune import Run
+except ImportError:
+    import neptune.new as neptune
+    from neptune.new import Run
 
 from neptune_aws.impl.version import __version__
 
@@ -39,7 +39,7 @@ def init_run(
     region: str,
     project: Optional[str] = None,
     **kwargs,
-) -> neptune.Run:
+) -> Run:
     """Starts a new tracked run and adds it to the top of the runs table.
 
     Takes the project name and API token from AWS Secrets. A secret with the following fields must be
@@ -62,7 +62,7 @@ def init_run(
     Example:
         Creating a new run:
 
-        >>> from neptune.new.integrations.aws import init_run  # doctest: +SKIP
+        >>> from neptune.integrations.aws import init_run  # doctest: +SKIP
         >>> run = init_run(
         ...     secret="neptune-secret",  # Use your secret name here
         ...     region="us-west-1",       # Use the appropriate region here
