@@ -1,7 +1,7 @@
 ## neptune_aws 1.1.0
 
 ### Fixes
-- Add missing boto3 dependency to the requirements ([#1](https://github.com/neptune-ai/neptune-aws/pull/6))
+- Add missing boto3 dependency to the requirements ([#6](https://github.com/neptune-ai/neptune-aws/pull/6))
 
 ## neptune_aws 1.0.0
 
