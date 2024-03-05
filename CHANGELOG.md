@@ -1,3 +1,8 @@
+## neptune_aws 1.1.1
+
+### Changes
+- Updated `pyproject.toml` ([#8](https://github.com/neptune-ai/neptune-aws/pull/8))
+
 ## neptune_aws 1.1.0
 
 ### Fixes
