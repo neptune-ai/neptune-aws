@@ -34,7 +34,7 @@ dev = [
 [tool.poetry]
 authors = ["neptune.ai <contact@neptune.ai>"]
 description = "Neptune.ai Tools for using Neptune client on AWS integration library"
-repository = "https://github.com/neptune-ai/neptune_aws"
+repository = "https://github.com/neptune-ai/neptune-aws"
 homepage = "https://neptune.ai/"
 documentation = "https://docs.neptune.ai/integrations/aws/"
 include = ["CHANGELOG.md"]
@@ -43,7 +43,7 @@ name = "neptune-aws"
 readme = "README.md"
 version = "0.0.0"
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
@@ -69,12 +69,12 @@ packages = [
 ]
 
 [tool.poetry.urls]
-"Tracker" = "https://github.com/neptune-ai/neptune_aws/issues"
+"Tracker" = "https://github.com/neptune-ai/neptune-aws/issues"
 "Documentation" = "https://docs.neptune.ai/integrations/aws/"
 
 [tool.black]
 line-length = 120
-target-version = ['py37', 'py38', 'py39', 'py310']
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
 include = '\.pyi?$'
 exclude = '''
 /(
